@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { List } from 'semantic-ui-react';
+import { List, Icon } from 'semantic-ui-react';
+import { withRouter } from 'react-router-dom';
+
 import $ from 'jquery';
 import './Projects.css';
 
@@ -30,25 +32,37 @@ class Projects extends Component {
       });
   }
 
+  linkTo() {
+    withRouter(({ history }) => {
+      return history.push('/ideas/1');
+    });
+  }
+
   render() {
     let projects = () => {
       let projects = this.state.projects;
       return projects.map((project, index) =>         
         <List.Item
+          as='a'
+          onClick={this.linkTo}
           key={index}>
+          <Icon 
+            name="idea" />
           <List.Content>
-            { project.project_name }
+            { project.project_name } - 
+            { project.point_of_contact }
           </List.Content>
         </List.Item>
       );
     }
 
     return (
-        <List
-          divided
-          celled>
-          { projects() }
-        </List>
+      <List
+        size='huge'
+        divided
+        celled>
+        { projects() }
+      </List>
     );
   }
 }
