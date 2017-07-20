@@ -8,10 +8,10 @@ import './Idea.css';
 const Idea = (props) => {
   const slug = props.match.params.slug;
 
-  const idea = props.projects.find(d => d.slug === slug);
+  const idea = props.ideas.find(d => d.slug === slug);
 
   return (
-    <div className="project">
+    <div className="idea">
       {idea &&
         (
           <div>
@@ -29,7 +29,7 @@ const Idea = (props) => {
 };
 
 Idea.propTypes = {
-  projects: PropTypes.arrayOf(PropTypes.object).isRequired,
+  ideas: PropTypes.arrayOf(PropTypes.object).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       slug: PropTypes.string,
