@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { List, Icon } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
+import ReactTable from 'react-table'
+import 'react-table/react-table.css'
 
 import $ from 'jquery';
 import './Projects.css';
@@ -56,14 +58,44 @@ class Projects extends Component {
         </List.Item>
       );
     }
+      // <List
+      //   size='huge'
+      //   divided
+      //   celled>
+      //   { projects() }
+      // </List>
+
+    const columns = [{
+      Header: 'Project Name',
+      accessor: 'project_name'
+    },
+    {
+      Header: 'Customer',
+      accessor: 'customer'
+    },
+    {
+      Header: 'Problem Statement',
+      accessor: 'problem_statement'
+    },
+    {
+      Header: 'Short Description',
+      accessor: 'short_description'
+    },
+    {
+      Header: 'Division',
+      accessor: 'division'
+    },
+    {
+      Header: 'Strategic Objectives',
+      accessor: 'strategic_objectives'
+    }];
 
     return (
-      <List
-        size='huge'
-        divided
-        celled>
-        { projects() }
-      </List>
+      <ReactTable
+        data={this.state.projects}
+        columns={columns}
+      />
+
     );
   }
 }
