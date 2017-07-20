@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const SHORTNAME = 'nycplanninglabs';
+const SHORTNAME = 'ideas-planninglabs-nyc';
 const WEBSITE_URL = 'https://ideas.planninglabs.nyc';
 
 function renderDisqus() {
