@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Route,
 } from 'react-router-dom';
-import $ from 'jquery'; // eslint-disable-line
 
 import Projects from './Projects';
 import Project from './Project';
@@ -29,7 +28,8 @@ class App extends Component {
   }
 
   fetchProjectsData() {
-    return $.getJSON(projectsUri)
+    return fetch(projectsUri)
+      .then(response => response.json())
       .then((response) => {
         const projects = response.records.map(record => record.fields);
         this.setState({ projects });
