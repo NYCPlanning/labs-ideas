@@ -12,10 +12,7 @@ import IdeaCreate from './IdeaCreate';
 
 import './App.css';
 
-const apiKey = 'keyQBC5qtKpZy4cWf';
-const table = 'Labs Project Tracking Staging';
-const view = 'All Projects';
-const projectsUri = `https://api.airtable.com/v0/app1f3lv9mx7L5xnY/${table}?view=${view}&api_key=${apiKey}`;
+const projectsUri = `https://api.planninglabs.nyc/ideas`;
 
 class App extends Component {
   constructor(props) {
@@ -33,16 +30,7 @@ class App extends Component {
   fetchProjectsData() {
     return fetch(projectsUri)
       .then(response => response.json())
-      .then((response) => {
-        const projects = response.records.map(record => record.fields);
-
-        projects.forEach((project) => {
-          const d = project;
-          d.slug = Slug(d.project_name, { lower: true });
-        });
-
-        console.log(projects);
-
+      .then((projects) => {
         this.setState({ projects });
       });
   }
