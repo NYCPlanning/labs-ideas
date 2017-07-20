@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const SHORTNAME = 'nycplanninglabs';
-const WEBSITE_URL = 'https://planninglabs.nyc';
+const WEBSITE_URL = 'https://ideas.planninglabs.nyc';
 
 function renderDisqus() {
   if (window.DISQUS === undefined) {
