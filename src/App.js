@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Route,
 } from 'react-router-dom';
-import Slug from 'slug';
 
 import Ideas from './Ideas';
 import Idea from './Idea';
