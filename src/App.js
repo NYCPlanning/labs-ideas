@@ -60,15 +60,15 @@ class App extends Component {
             )}
           />
           <Route
-            path="/ideas/:slug"
+            path="/create"
+            exact
+            component={IdeaCreate}
+          />
+          <Route
+            path="/:slug"
             render={props => (
               <Project projects={projects} {...props} />
             )}
-          />
-          <Route
-            path="/ideas/create"
-            exact
-            component={IdeaCreate}
           />
         </div>
       </Router>
