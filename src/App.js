@@ -6,6 +6,7 @@ import {
 
 import Projects from './Projects';
 import Project from './Project';
+import IdeaCreate from './IdeaCreate'
 
 import './App.css';
 
@@ -53,6 +54,11 @@ class App extends Component {
             render={props => (
               <Project projects={projects} {...props} />
             )}
+          />
+          <Route
+            path="/ideas/create"
+            exact
+            component={IdeaCreate}
           />
         </div>
       </Router>
