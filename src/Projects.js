@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import { List, Icon } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 
-import $ from 'jquery';
 import './Projects.css';
 
-const projects_endpoint = '/projects/pipeline.json';
-const protocol = 'http://'
-const host = 'localhost:3000';
-const projects_uri = protocol + host + projects_endpoint;
+const api_key = 'keyQBC5qtKpZy4cWf';
+const table = 'Labs Project Tracking Staging';
+const view = 'All Projects';
+const projects_uri = `https://api.airtable.com/v0/app1f3lv9mx7L5xnY/${table}?view=${view}&api_key=${api_key}`;
 
 class Projects extends Component {
   constructor(props) {
@@ -24,8 +23,12 @@ class Projects extends Component {
   }
 
   fetchProjectsData() {
-    return $.getJSON(projects_uri)
-      .then((projects) => {
+    return fetch(projects_uri)
+      .then((response) => {
+        return response.json();
+      })
+      .then((response) => {
+        let projects = response.records.map((record) => { return record.fields; });
         this.setState({
           projects
         });
