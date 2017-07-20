@@ -3,10 +3,12 @@ import {
   BrowserRouter as Router,
   Route,
 } from 'react-router-dom';
+import Slug from 'slug';
 
 import Projects from './Projects';
 import Project from './Project';
-import IdeaCreate from './IdeaCreate'
+import IdeaCreate from './IdeaCreate';
+
 
 import './App.css';
 
@@ -33,6 +35,14 @@ class App extends Component {
       .then(response => response.json())
       .then((response) => {
         const projects = response.records.map(record => record.fields);
+
+        projects.forEach((project) => {
+          const d = project;
+          d.slug = Slug(d.project_name, { lower: true });
+        });
+
+        console.log(projects);
+
         this.setState({ projects });
       });
   }
@@ -50,7 +60,7 @@ class App extends Component {
             )}
           />
           <Route
-            path="/ideas/:id"
+            path="/ideas/:slug"
             render={props => (
               <Project projects={projects} {...props} />
             )}

@@ -6,9 +6,9 @@ import DisqusThread from './DisqusThread';
 import './Project.css';
 
 const Project = (props) => {
-  const id = parseInt(props.match.params.id, 10);
+  const slug = props.match.params.slug;
 
-  const idea = props.projects.find(d => d.project_id === id);
+  const idea = props.projects.find(d => d.slug === slug);
 
   return (
     <div className="project">
@@ -19,7 +19,7 @@ const Project = (props) => {
             <DisqusThread
               id={idea.project_id.toString()}
               title={idea.project_name}
-              path={`/ideas/${idea.project_id}`}
+              path={`/ideas/${idea.slug}`}
             />
           </div>
         )
@@ -32,7 +32,7 @@ Project.propTypes = {
   projects: PropTypes.arrayOf(PropTypes.object).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
-      id: PropTypes.string,
+      slug: PropTypes.string,
     }),
   }).isRequired,
 };
