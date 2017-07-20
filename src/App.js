@@ -41,8 +41,6 @@ class App extends Component {
           d.slug = Slug(d.project_name, { lower: true });
         });
 
-        console.log(projects);
-
         this.setState({ projects });
       });
   }
@@ -50,28 +48,45 @@ class App extends Component {
   render() {
     const { projects } = this.state;
     return (
-      <Router>
-        <div className="App">
-          <Route
-            exact
-            path="/"
-            render={() => (
-              <Projects projects={projects} />
-            )}
-          />
-          <Route
-            path="/create"
-            exact
-            component={IdeaCreate}
-          />
-          <Route
-            path="/:slug"
-            render={props => (
-              <Project projects={projects} {...props} />
-            )}
-          />
+      <div>
+        <div className="pl-hero">
+          <div className="grid-container">
+            <div className="grid-x grid-padding-x grid-padding-y">
+              <div className="cell large-9">
+                <h1 className="header-large">Project Ideas</h1>
+                <p className="header-xxlarge">Discuss &amp; promote ideas for Planning Labs projects.</p>
+              </div>
+              <div className="cell large-3">
+                <a href="index.html" className="button large expanded">All Ideas</a>
+                <a href="submit.html" className="button large expanded">Submit Idea</a>
+              </div>
+            </div>
+          </div>
         </div>
-      </Router>
+
+        <Router>
+          <div className="App">
+            <Route
+              exact
+              path="/"
+              render={() => (
+                <Projects projects={projects} />
+              )}
+            />
+            <Route
+              path="/create"
+              exact
+              component={IdeaCreate}
+            />
+            <Route
+              path="/:slug"
+              render={props => (
+                <Project projects={projects} {...props} />
+              )}
+            />
+          </div>
+        </Router>
+      </div>
     );
   }
 }
