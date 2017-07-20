@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import DisqusThread from './DisqusThread';
+
 import './Project.css';
 
 const Project = (props) => {
@@ -12,7 +14,14 @@ const Project = (props) => {
     <div className="project">
       {idea &&
         (
-          <div>{idea.project_name} - { idea.point_of_contact }</div>
+          <div>
+            {idea.project_name} - { idea.point_of_contact }
+            <DisqusThread
+              id={idea.project_id.toString()}
+              title={idea.project_name}
+              path={`/ideas/${idea.project_id}`}
+            />
+          </div>
         )
       }
     </div>
@@ -23,7 +32,7 @@ Project.propTypes = {
   projects: PropTypes.arrayOf(PropTypes.object).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
-      id: PropTypes.number,
+      id: PropTypes.string,
     }),
   }).isRequired,
 };
