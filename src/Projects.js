@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { List, Icon } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 
-import $ from 'jquery';
 import './Projects.css';
 
 const api_key = 'keyQBC5qtKpZy4cWf';
@@ -24,7 +23,10 @@ class Projects extends Component {
   }
 
   fetchProjectsData() {
-    return $.getJSON(projects_uri)
+    return fetch(projects_uri)
+      .then((response) => {
+        return response.json();
+      })
       .then((response) => {
         let projects = response.records.map((record) => { return record.fields; });
         this.setState({
