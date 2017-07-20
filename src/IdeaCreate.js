@@ -2,7 +2,7 @@ import React from 'react';
 import './IdeaCreate.css';
 
 const IdeaCreate = () => (
-  <div className="project">
+  <div className="idea">
     <script src="https://static.airtable.com/js/embed/embed_snippet_v1.js" />
     <iframe
       className="airtable-embed airtable-dynamic-height"

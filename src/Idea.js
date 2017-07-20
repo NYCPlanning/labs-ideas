@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import DisqusThread from './DisqusThread';
 
-import './Project.css';
+import './Idea.css';
 
-const Project = (props) => {
+const Idea = (props) => {
   const slug = props.match.params.slug;
 
   const idea = props.projects.find(d => d.slug === slug);
@@ -28,7 +28,7 @@ const Project = (props) => {
   );
 };
 
-Project.propTypes = {
+Idea.propTypes = {
   projects: PropTypes.arrayOf(PropTypes.object).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
@@ -37,4 +37,4 @@ Project.propTypes = {
   }).isRequired,
 };
 
-export default Project;
+export default Idea;

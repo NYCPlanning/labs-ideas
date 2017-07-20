@@ -5,38 +5,38 @@ import {
 } from 'react-router-dom';
 import Slug from 'slug';
 
-import Projects from './Projects';
-import Project from './Project';
+import Ideas from './Ideas';
+import Idea from './Idea';
 import IdeaCreate from './IdeaCreate';
 
 
 import './App.css';
 
-const projectsUri = `https://api.planninglabs.nyc/ideas`;
+const ideasUri = `https://api.planninglabs.nyc/ideas`;
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      projects: [],
+      ideas: [],
     };
   }
 
   componentDidMount() {
-    this.fetchProjectsData();
+    this.fetchIdeasData();
   }
 
-  fetchProjectsData() {
-    return fetch(projectsUri)
+  fetchIdeasData() {
+    return fetch(ideasUri)
       .then(response => response.json())
-      .then((projects) => {
-        this.setState({ projects });
+      .then((ideas) => {
+        this.setState({ ideas });
       });
   }
 
   render() {
-    const { projects } = this.state;
+    const { ideas } = this.state;
     return (
       <Router>
         <div className="App">
@@ -44,7 +44,7 @@ class App extends Component {
             exact
             path="/"
             render={() => (
-              <Projects projects={projects} />
+              <Ideas ideas={ideas} />
             )}
           />
           <Route
@@ -55,7 +55,7 @@ class App extends Component {
           <Route
             path="/:slug"
             render={props => (
-              <Project projects={projects} {...props} />
+              <Idea ideas={ideas} {...props} />
             )}
           />
         </div>
