@@ -13,7 +13,7 @@ class Projects extends Component {
         <List.Item key={d.project_id} >
           <Icon name="idea" />
           <List.Content>
-            <Link to={`/ideas/${d.project_id}`}>
+            <Link to={`/ideas/${d.slug}`}>
               { d.project_name } - { d.point_of_contact }
             </Link>
           </List.Content>
