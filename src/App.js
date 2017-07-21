@@ -6,6 +6,8 @@ import Ideas from './Ideas';
 import Idea from './Idea';
 import IdeaCreate from './IdeaCreate';
 
+import Hero from './Hero';
+
 import './App.css';
 
 const ideasUri = 'https://api.planninglabs.nyc/ideas';
@@ -37,6 +39,7 @@ class App extends Component {
     return (
       <Router id={gaTrackingCode}>
         <div className="App">
+          <Hero />
           <Route
             exact
             path="/"
