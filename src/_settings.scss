@@ -450,9 +450,9 @@ $form-button-radius: $global-radius;
 // 21. Label
 // ---------
 
-$label-background: $primary-color;
-$label-color: $white;
-$label-color-alt: $black;
+$label-background: $medium-gray;
+$label-color: $black;
+$label-color-alt: $white;
 $label-palette: map-merge($foundation-palette, (
     neighborhood-improvement: #188340,
     housing: #ffa014,

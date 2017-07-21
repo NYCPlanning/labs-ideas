@@ -69,6 +69,12 @@
   text-transform: uppercase;
 }
 
+p, h1, h2, h3, h4, h5, h6 {
+  & + .header-tiny {
+    margin-top: $global-margin * 2;
+  }
+}
+
 .button {
   font-weight: $global-weight-bold;
 }
@@ -114,4 +120,8 @@
 // TODO: do this with a semantic class (prob shouldn't always remove card margins)
 .grid-padding-y .card {
   margin-bottom: 0;
+}
+
+.disqus {
+  margin-top: $global-margin;
 }
