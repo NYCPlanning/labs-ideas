@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import slug from 'slug';
 
 import './Ideas.scss';
 
+slug.defaults.mode = 'rfc3986';
+
 class Ideas extends Component {
   render() {
+    const objectives = (objectives) => {
+      return objectives.map(d => (
+        <span key={d} className={`label ${slug(d)}`}>{d}</span>
+      ))
+    }
+
     const getIdeas = () => {
       const { ideas } = this.props;
       return ideas.map(d => (
@@ -19,12 +28,7 @@ class Ideas extends Component {
               </h3>
               <h4 className="header-small">{ d.division }</h4>
               <p>{ d.short_description }</p>
-              <span className="label neighborhood-improvement">neighborhood-improvement</span>
-              <span className="label housing">housing</span>
-              <span className="label economic-development">economic-development</span>
-              <span className="label resiliency-and-sustainability">resiliency and sustainability</span>
-              <span className="label land-use-reviews">Land Use Reviews</span>
-              <span className="label data-and-expertise">data-and-expertise</span>
+              { d.strategic_objectives && objectives(d.strategic_objectives) }
             </div>
           </div>
         </div>
