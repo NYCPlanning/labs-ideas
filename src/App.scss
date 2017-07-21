@@ -147,6 +147,11 @@ p, h1, h2, h3, h4, h5, h6 {
 
   .card {
     margin-bottom: 0;
+
+    // TODO: This is a hack to equalize car heights, which is dependent on content length.
+    @include breakpoint(large) {
+      min-height: 15rem;
+    }
   }
 }
 
