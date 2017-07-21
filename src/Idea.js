@@ -34,6 +34,7 @@ const Idea = (props) => {
                     <span className="label housing">housing</span>
                     <span className="label economic-development">economic-development</span>
                     <span className="label resiliency-and-sustainability">resiliency and sustainability</span>
+                    <span className="label land-use-reviews">Land Use Reviews</span>
                     <span className="label data-and-expertise">data-and-expertise</span>
                 </div>
                 <div className="callout">
