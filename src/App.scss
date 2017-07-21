@@ -144,11 +144,10 @@ p, h1, h2, h3, h4, h5, h6 {
       @include xy-cell(6, true, $global-margin, padding, top right bottom left, null, false);
     }
   }
-}
 
-// TODO: do this with a semantic class (prob shouldn't always remove card margins)
-.grid-padding-y .card {
-  margin-bottom: 0;
+  .card {
+    margin-bottom: 0;
+  }
 }
 
 .disqus {
