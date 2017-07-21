@@ -17,6 +17,9 @@ class Ideas extends Component {
 
     const getIdeas = () => {
       const { ideas } = this.props;
+      const query = new URLSearchParams(this.props.location.search);
+      const categories = query.get('categories').split(',');
+
       return ideas.map(d => (
         <div key={d.project_id} className="cell">
           <div className="card">
