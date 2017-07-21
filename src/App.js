@@ -7,6 +7,7 @@ import Idea from './Idea';
 import IdeaCreate from './IdeaCreate';
 
 import Hero from './Hero';
+import NotFound from './NotFound.js';
 
 import './App.css';
 
@@ -37,29 +38,32 @@ class App extends Component {
   render() {
     const { ideas } = this.state;
     return (
-      <Router id={gaTrackingCode}>
-        <div className="App">
-          <Hero />
-          <Route
-            exact
-            path="/"
-            render={() => (
-              <Ideas ideas={ideas} />
-            )}
-          />
-          <Route
-            path="/create"
-            exact
-            component={IdeaCreate}
-          />
-          <Route
-            path="/:slug"
-            render={props => (
-              <Idea ideas={ideas} {...props} />
-            )}
-          />
-        </div>
-      </Router>
+      <div>
+        <Router id={gaTrackingCode}>
+          <div className="App">
+            <Hero />
+            <Route
+              exact
+              path="/"
+              render={() => (
+                <Ideas ideas={ideas} />
+              )}
+            />
+            <Route
+              path="/create"
+              exact
+              component={IdeaCreate}
+            />
+            <Route
+              path="/:slug"
+              render={props => (
+                <Idea ideas={ideas} {...props} />
+              )}
+            />
+            <Route component={NotFound} />
+          </div>
+        </Router>
+      </div>
     );
   }
 }
