@@ -37,8 +37,12 @@ class Ideas extends Component {
 
     return (
       <div className="grid-container">
-        <div className="grid-x grid-padding-x grid-padding-y medium-up-2">
-          { getIdeas() }
+        <div className="grid-x grid-padding-x grid-padding-y">
+          <div className="cell">
+            <div className="ideas-grid">
+              { getIdeas() }
+            </div>
+          </div>
         </div>
       </div>
     );
