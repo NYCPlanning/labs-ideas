@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { List, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
-import './Projects.css';
+import './Ideas.css';
 
-class Projects extends Component {
+class Ideas extends Component {
   render() {
-    const getProjects = () => {
-      const { projects } = this.props;
-      return projects.map(d => (
+    const getIdeas = () => {
+      const { ideas } = this.props;
+      return ideas.map(d => (
         <List.Item key={d.project_id} >
           <Icon name="idea" />
           <List.Content>
@@ -27,14 +27,14 @@ class Projects extends Component {
         divided
         celled
       >
-        { getProjects() }
+        { getIdeas() }
       </List>
     );
   }
 }
 
-Projects.propTypes = {
-  projects: PropTypes.arrayOf(PropTypes.object).isRequired,
+Ideas.propTypes = {
+  ideas: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-export default Projects;
+export default Ideas;

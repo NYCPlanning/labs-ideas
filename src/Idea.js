@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 
 import DisqusThread from './DisqusThread';
 
-import './Project.css';
+import './Idea.css';
 
-const Project = (props) => {
+const Idea = (props) => {
   const slug = props.match.params.slug;
 
-  const idea = props.projects.find(d => d.slug === slug);
+  const idea = props.ideas.find(d => d.slug === slug);
 
   return (
-    <div className="project">
+    <div className="idea">
       {idea &&
         (
           <div>
@@ -28,8 +28,8 @@ const Project = (props) => {
   );
 };
 
-Project.propTypes = {
-  projects: PropTypes.arrayOf(PropTypes.object).isRequired,
+Idea.propTypes = {
+  ideas: PropTypes.arrayOf(PropTypes.object).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       slug: PropTypes.string,
@@ -37,4 +37,4 @@ Project.propTypes = {
   }).isRequired,
 };
 
-export default Project;
+export default Idea;
