@@ -103,6 +103,22 @@ p, h1, h2, h3, h4, h5, h6 {
   }
 }
 
+.pl-site-footer {
+  background-color: #f1f1f1;
+  font-size: $small-font-size;
+  font-weight: $global-weight-bold;
+  padding: $global-margin 0;
+  margin-top: $global-margin * 3;
+
+  ul{
+    line-height: 2;
+  }
+
+  .header-tiny {
+    text-transform: none;
+  }
+}
+
 .pl-hero {
   background-color: $primary-color;
   color: $white;
