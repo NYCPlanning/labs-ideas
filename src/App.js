@@ -5,9 +5,7 @@ import { BrowserRouter as Router } from 'react-g-analytics';
 import Ideas from './Ideas';
 import Idea from './Idea';
 import IdeaCreate from './IdeaCreate';
-
 import Hero from './Hero';
-import NotFound from './NotFound.js';
 
 import './App.css';
 
@@ -60,7 +58,6 @@ class App extends Component {
                 <Idea ideas={ideas} {...props} />
               )}
             />
-            <Route component={NotFound} />
           </div>
         </Router>
       </div>
