@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import DisqusThread from './DisqusThread';
 import NotFound from './NotFound';
 
-import './Idea.scss';
+import './Idea.css';
 
 const Idea = (props) => {
   const slug = props.match.params.slug;

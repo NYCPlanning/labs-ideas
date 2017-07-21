@@ -6,6 +6,7 @@ import Ideas from './Ideas';
 import Idea from './Idea';
 import IdeaCreate from './IdeaCreate';
 import Hero from './Hero';
+import Spinner from './Spinner';
 
 import './App.css';
 
@@ -35,29 +36,38 @@ class App extends Component {
 
   render() {
     const { ideas } = this.state;
+
+    const routes = (
+      <div>
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <Ideas ideas={ideas} />
+          )}
+        />
+        <Route
+          path="/create"
+          exact
+          component={IdeaCreate}
+        />
+        <Route
+          path="/:slug"
+          render={props => (
+            <Idea ideas={ideas} {...props} />
+          )}
+        />
+      </div>
+    );
+
+    const content = ideas.length === 0 ? <Spinner /> : routes;
+
     return (
       <div>
         <Router id={gaTrackingCode}>
           <div className="App">
             <Hero />
-            <Route
-              exact
-              path="/"
-              render={() => (
-                <Ideas ideas={ideas} />
-              )}
-            />
-            <Route
-              path="/create"
-              exact
-              component={IdeaCreate}
-            />
-            <Route
-              path="/:slug"
-              render={props => (
-                <Idea ideas={ideas} {...props} />
-              )}
-            />
+            {content}
           </div>
         </Router>
       </div>
