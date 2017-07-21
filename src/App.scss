@@ -107,7 +107,7 @@
   }
 
   .button {
-    @include button-style($primary-color, auto, get-color(secondary));
+    @include button-style(darken($primary-color,10%), auto, get-color(secondary));
   }
 }
 

@@ -7,7 +7,7 @@ import {
 import Ideas from './Ideas';
 import Idea from './Idea';
 import IdeaCreate from './IdeaCreate';
-
+import Hero from './Hero';
 
 import './App.css';
 
@@ -38,22 +38,9 @@ class App extends Component {
     const { ideas } = this.state;
     return (
       <div>
-        <div className="pl-hero">
-          <div className="grid-container">
-            <div className="grid-x grid-padding-x grid-padding-y">
-              <div className="cell large-9">
-                <h1 className="header-large">Project Ideas</h1>
-                <p className="header-xxlarge">Discuss &amp; promote ideas for Planning Labs projects.</p>
-              </div>
-              <div className="cell large-3">
-                <a href="index.html" className="button large expanded">All Ideas</a>
-                <a href="submit.html" className="button large expanded">Submit Idea</a>
-              </div>
-            </div>
-          </div>
-        </div>
         <Router>
           <div className="App">
+            <Hero />
             <Route
               exact
               path="/"
