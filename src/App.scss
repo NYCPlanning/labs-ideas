@@ -73,6 +73,10 @@
   font-weight: $global-weight-bold;
 }
 
+.label {
+  margin: 0 0.25rem 0.25rem 0;
+}
+
 .pl-site-header {
 
   .site-logo {
@@ -103,34 +107,11 @@
   }
 
   .button {
-    @include button-style(darken($primary-color,10%), auto, get-color(secondary));
+    @include button-style($primary-color, auto, get-color(secondary));
   }
 }
 
 // TODO: do this with a semantic class (prob shouldn't always remove card margins)
 .grid-padding-y .card {
   margin-bottom: 0;
-}
-
-
-// TODO: Can we nix everything below? Seems like it's all placeholder.
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }

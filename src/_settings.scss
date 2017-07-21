@@ -328,7 +328,7 @@ $callout-link-tint: 30%;
 $card-background: $white;
 $card-font-color: $body-font-color;
 $card-divider-background: $light-gray;
-$card-border: 1px solid $light-gray;
+$card-border: 1px solid $medium-gray;
 $card-shadow: none;
 $card-border-radius: $global-radius;
 $card-padding: $global-padding;
@@ -453,7 +453,13 @@ $form-button-radius: $global-radius;
 $label-background: $primary-color;
 $label-color: $white;
 $label-color-alt: $black;
-$label-palette: $foundation-palette;
+$label-palette: map-merge($foundation-palette, (
+    neighborhood-improvement: #188340,
+    housing: #ffa014,
+    economic-development: #c24532,
+    resiliency-and-sustainability: #1f66e5,
+    data-and-expertise: #634ceb,
+));
 $label-font-size: 0.8rem;
 $label-padding: 0.33333rem 0.5rem;
 $label-radius: $global-radius;
