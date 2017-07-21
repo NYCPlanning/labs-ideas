@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import './Ideas.css';
+import './Ideas.scss';
 
 class Ideas extends Component {
   render() {
