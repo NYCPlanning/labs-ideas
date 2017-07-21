@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { List, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
-import './Ideas.css';
+import './Ideas.scss';
 
 class Ideas extends Component {
   render() {

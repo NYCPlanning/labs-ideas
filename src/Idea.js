@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import DisqusThread from './DisqusThread';
 
-import './Idea.css';
+import './Idea.scss';
 
 const Idea = (props) => {
   const slug = props.match.params.slug;
