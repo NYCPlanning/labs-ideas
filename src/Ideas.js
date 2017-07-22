@@ -7,7 +7,7 @@ import './Ideas.scss';
 
 slug.defaults.mode = 'rfc3986';
 
-const options = ['Economic Development','Data and Expertise','Resiliency and Sustainability', 'Neighborhood Improvement'];
+const defaultSelection = ['Economic Development','Data and Expertise','Resiliency and Sustainability', 'Neighborhood Improvement'];
 
 class Ideas extends Component {
   constructor(props) {
@@ -16,8 +16,10 @@ class Ideas extends Component {
             query = new URLSearchParams(location.search),
             value = query.get('categories') || '';
 
+    const categories = value ? value.split(',') : defaultSelection
+
     this.state = {
-      categories: value.split(',') || options
+      categories
     }
   }
 
