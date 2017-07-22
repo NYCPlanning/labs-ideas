@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import slug from 'slug';
 
 import DisqusThread from './DisqusThread';
+import NotFound from './NotFound';
 
-import './Idea.scss';
+import './Idea.css';
 
 const Idea = (props) => {
   const pageSlug = props.match.params.slug;
@@ -51,7 +52,8 @@ const Idea = (props) => {
                 </div>
               </div>
               <div className="cell large-8">
-                <DisqusThread className="disqus"
+                <DisqusThread
+                  className="disqus"
                   id={idea.project_id.toString()}
                   title={idea.project_name}
                   path={`/ideas/${idea.slug}`}
@@ -60,6 +62,10 @@ const Idea = (props) => {
             </div>
           </div>
         )
+      }
+
+      {
+        !idea && <NotFound />
       }
     </div>
   );

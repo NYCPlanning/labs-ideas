@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import slug from 'slug';
 
-import './Ideas.scss';
+import './Ideas.css';
 
 slug.defaults.mode = 'rfc3986';
 
