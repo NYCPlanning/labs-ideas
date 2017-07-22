@@ -12,13 +12,18 @@ const options = ['Economic Development','Data and Expertise','Resiliency and Sus
 class Ideas extends Component {
   constructor(props) {
     super();
+    const { history, location } = props,
+            query = new URLSearchParams(location.search),
+            value = query.get('categories') || '';
+
     this.state = {
-      categories: options
+      categories: value.split(',') || options
     }
   }
 
   changeCategory = (clickedCategory) => {
-    let categories = this.state.categories.slice();
+    const categories = this.state.categories.slice();
+    const { history } = this.props;
 
     if (categories.includes(clickedCategory)) {
       let newCategories = removeItem(categories, clickedCategory);
@@ -32,6 +37,10 @@ class Ideas extends Component {
         categories
       });
     }
+
+    history.push({
+      search: `?categories=${categories.join(',')}`
+    });
   }
 
   render() {
@@ -107,7 +116,7 @@ function removeItem(array,value) {
 }
 
 function unique(array) {
-  return array.filter((x, i, a) => a.indexOf(x) == i);
+  return array.filter((x, i, a) => a.indexOf(x) === i);
 }
 
 export default Ideas;
