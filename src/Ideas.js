@@ -37,13 +37,13 @@ class Ideas extends Component {
   render() {
     const { ideas } = this.props;
 
+    // get array of unique options 
     let options = 
       unique(ideas.reduce((a,b,c) => {
         return a.concat(b.strategic_objectives);
       }, []).filter(Boolean));
 
-    console.log(options);
-
+    // markup and event bindings for categories
     const objectives = (objectives, clicked) => {
       return objectives.map(d => (
         <span key={d} 
@@ -52,6 +52,7 @@ class Ideas extends Component {
       ))
     }
 
+    // filter and decorate ideas with markup
     const getIdeas = () => {
       return ideas
         .filter(d => {
@@ -77,6 +78,7 @@ class Ideas extends Component {
       ));
     };
 
+    // put it all together
     return (
       <div className="grid-container">
         { objectives(options, this.changeCategory) }
@@ -93,6 +95,7 @@ Ideas.propTypes = {
   ideas: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
+// utility helpers for arrays
 function removeItem(array,value) {
   let index = array.indexOf(value);
 
