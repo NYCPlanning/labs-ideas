@@ -3,97 +3,113 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import slug from 'slug';
 
-import './Ideas.scss';
+import './Ideas.css';
 
 slug.defaults.mode = 'rfc3986';
 
-const defaultSelection = ['Economic Development','Data and Expertise','Resiliency and Sustainability', 'Neighborhood Improvement'];
+const defaultSelection = ['Economic Development', 'Data and Expertise', 'Resiliency and Sustainability', 'Neighborhood Improvement', 'Housing'];
+
+function checkIfAllSelected(categories, all) {
+  let allSelected = true;
+  all.forEach((d) => {
+    if (categories.indexOf(d) < 0) allSelected = false;
+  });
+  return allSelected;
+}
+
+// utility helpers for arrays
+function removeItem(array, value) {
+  const index = array.indexOf(value);
+
+  if (index > -1) {
+    array.splice(index, 1);
+  }
+
+  return array;
+}
 
 class Ideas extends Component {
   constructor(props) {
     super();
-    const { history, location } = props,
-            query = new URLSearchParams(location.search),
-            value = query.get('categories') || '';
+    const { location } = props;
+    const query = new URLSearchParams(location.search);
+    const value = query.get('categories') || '';
 
-    const categories = value ? value.split(',') : defaultSelection
+    const categories = value ? value.split(',') : defaultSelection;
 
-    this.state = {
-      categories
-    }
+    this.state = { categories };
   }
 
   changeCategory = (clickedCategory) => {
-    const categories = this.state.categories.slice();
+    let categories = this.state.categories.slice();
     const { history } = this.props;
 
-    if (categories.includes(clickedCategory)) {
-      let newCategories = removeItem(categories, clickedCategory);
-      this.setState({
-        categories: newCategories
-      });
+    const allWereSelected = checkIfAllSelected(categories, defaultSelection);
 
+    if (allWereSelected) {
+      categories = [clickedCategory];
+    } else if (categories.indexOf(clickedCategory) > -1) {
+      categories = removeItem(categories, clickedCategory);
     } else {
       categories.push(clickedCategory);
-      this.setState({
-        categories
-      });
     }
 
+    if (categories.length === 0) categories = defaultSelection;
+
+    this.setState({ categories });
+
+    const allAreSelected = checkIfAllSelected(categories, defaultSelection);
+
     history.push({
-      search: `?categories=${categories.join(',')}`
+      search: allAreSelected ? '' : `?categories=${categories.join(',')}`,
     });
   }
 
   render() {
     const { ideas } = this.props;
-
-    // get array of unique options 
-    let options = 
-      unique(ideas.reduce((a,b,c) => {
-        return a.concat(b.strategic_objectives);
-      }, []).filter(Boolean));
+    const { categories } = this.state;
 
     // markup and event bindings for categories
-    const objectives = (objectives, clicked) => {
-      return objectives.map(d => (
-        <span key={d} 
-              onClick={clicked ? clicked.bind(this,d) : null} 
-              className={`label ${slug(d)}`}>{d}</span>
-      ))
-    }
+    const getObjectives = (objectives, header) => objectives
+      .map((d) => {
+        const disabled = (header && categories.indexOf(d) < 0) ? 'disabled' : '';
+        return (
+          <button
+            key={d}
+            onClick={header ? () => { this.changeCategory(d); } : null}
+            className={`label ${slug(d)} ${disabled}`}
+          >
+            {d}
+          </button>
+        );
+      });
 
     // filter and decorate ideas with markup
-    const getIdeas = () => {
-      return ideas
-        .filter(d => {
-          if(d.strategic_objectives) {
-            return d.strategic_objectives.some(o => this.state.categories.indexOf(o) >= 0);
-          }
-        })
-        .map(d => (
-          <div key={d.project_id} className="cell">
-            <div className="card">
-              <div className="card-section">
-                <h3>
-                  <Link to={`/${d.slug}`}>
-                    { d.project_name }
-                  </Link>
-                </h3>
-                <h4 className="header-small">{ d.division }</h4>
-                <p>{ d.short_description }</p>
-                { d.strategic_objectives && objectives(d.strategic_objectives) }
-              </div>
+    const getIdeas = () => ideas
+      .filter(d => d.strategic_objectives && d.strategic_objectives.some(
+        o => this.state.categories.indexOf(o) >= 0,
+      ))
+      .map(d => (
+        <div key={d.project_id} className="cell">
+          <div className="card">
+            <div className="card-section">
+              <h3>
+                <Link to={`/${d.slug}`}>
+                  { d.project_name }
+                </Link>
+              </h3>
+              <h4 className="header-small">{ d.division }</h4>
+              <p>{ d.short_description }</p>
+              { d.strategic_objectives && getObjectives(d.strategic_objectives) }
             </div>
           </div>
+        </div>
       ));
-    };
 
     // put it all together
     return (
-      <div className="grid-container">
-        { objectives(options, this.changeCategory) }
-        Currently Selected: { this.state.categories.join(',') }
+      <div className="grid-container ideas">
+        { getObjectives(defaultSelection, true) }
         <div className="grid-x grid-padding-x grid-padding-y medium-up-2">
           { getIdeas() }
         </div>
@@ -104,21 +120,8 @@ class Ideas extends Component {
 
 Ideas.propTypes = {
   ideas: PropTypes.arrayOf(PropTypes.object).isRequired,
+  location: PropTypes.shape.isRequired,
+  history: PropTypes.shape.isRequired,
 };
-
-// utility helpers for arrays
-function removeItem(array,value) {
-  let index = array.indexOf(value);
-
-  if (index > -1) {
-     array.splice(index, 1);
-  }
-
-  return array;
-}
-
-function unique(array) {
-  return array.filter((x, i, a) => a.indexOf(x) === i);
-}
 
 export default Ideas;
