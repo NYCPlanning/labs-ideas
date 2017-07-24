@@ -1,14 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import slug from 'slug';
 
 import DisqusThread from './DisqusThread';
+import NotFound from './NotFound';
 
-import './Idea.scss';
+import './Idea.css';
 
 const Idea = (props) => {
-  const slug = props.match.params.slug;
+  const pageSlug = props.match.params.slug;
 
-  const idea = props.ideas.find(d => d.slug === slug);
+  const idea = props.ideas.find(d => d.slug === pageSlug);
+
+  const getObjectives = (objectives) => {
+    return objectives.map(d => (
+      <span key={d} className={`label ${slug(d)}`}>{d}</span>
+    ))
+  }
+
+  const objectives = idea && idea.strategic_objectives && idea.strategic_objectives.length > 0 ?
+    getObjectives(idea.strategic_objectives):
+    <div>None</div>;
 
   return (
     <div className="idea">
@@ -30,11 +42,7 @@ const Idea = (props) => {
                 </div>
                 <div className="callout">
                   <h4 className="header-tiny">Strategic Objectives</h4>
-                    <span className="label neighborhood-improvement">neighborhood-improvement</span>
-                    <span className="label housing">housing</span>
-                    <span className="label economic-development">economic-development</span>
-                    <span className="label resiliency-and-sustainability">resiliency and sustainability</span>
-                    <span className="label data-and-expertise">data-and-expertise</span>
+                  { objectives }
                 </div>
                 <div className="callout">
                   <h4 className="header-tiny">Project Type</h4>
@@ -44,7 +52,8 @@ const Idea = (props) => {
                 </div>
               </div>
               <div className="cell large-8">
-                <DisqusThread className="disqus"
+                <DisqusThread
+                  className="disqus"
                   id={idea.project_id.toString()}
                   title={idea.project_name}
                   path={`/ideas/${idea.slug}`}
@@ -53,6 +62,10 @@ const Idea = (props) => {
             </div>
           </div>
         )
+      }
+
+      {
+        !idea && <NotFound />
       }
     </div>
   );
