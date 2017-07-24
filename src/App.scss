@@ -75,7 +75,7 @@ p, h1, h2, h3, h4, h5, h6 {
   }
 }
 
-.ideas {
+.strategic-objectives, .tags {
   .button, .label {
     font-weight: $global-weight-bold;
     margin: 0 0.25rem 0.25rem 0;
@@ -135,6 +135,7 @@ p, h1, h2, h3, h4, h5, h6 {
 .ideas-grid {
   @include xy-grid();
   @include xy-gutters($global-margin, padding, right left, true);
+  margin-bottom: $global-margin*2;
 
   .cell {
     @include xy-cell(full, true, $global-margin, padding, top right bottom left, null, false);
@@ -149,7 +150,7 @@ p, h1, h2, h3, h4, h5, h6 {
 
     // TODO: This is a hack to equalize car heights, which is dependent on content length.
     @include breakpoint(large) {
-      min-height: 15rem;
+      min-height: 17.25rem;
     }
   }
 }

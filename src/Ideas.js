@@ -88,7 +88,7 @@ class Ideas extends Component {
           <button
             key={d}
             onClick={header ? () => { this.changeCategory(d); } : null}
-            className={`${slug(d)} ${disabled} button tiny`}
+            className={`${slug(d)} ${disabled} button small`}
           >
             {d}
           </button>
@@ -123,7 +123,7 @@ class Ideas extends Component {
               </h3>
               <h4 className="header-small">{ d.customer }</h4>
               <p>{ d.short_description }</p>
-              <p>{ d.strategic_objectives && getObjectives(d.strategic_objectives) }</p>
+              <p className="tags">{ d.strategic_objectives && getObjectives(d.strategic_objectives) }</p>
             </div>
           </div>
         </div>
@@ -134,18 +134,21 @@ class Ideas extends Component {
       <div className="grid-container ideas">
         <div className="grid-x grid-padding-x grid-padding-y">
           <div className="cell">
-            <div className="callout">
-              <h6>Filter by Strategic Objective</h6>
-              { getObjectives(defaultSelection, true) }
+            <h3>Ideas submitted by DCP staff</h3>
+          </div>
+          <div className="cell large-3">
+            <div>
+              <small>Filter by <a href="https://www1.nyc.gov/site/planning/about/dcp-priorities.page">DCP Strategic Objective</a>:</small>
+              <p className="strategic-objectives">
+                { getObjectives(defaultSelection, true) }
+              </p>
             </div>
+          </div>
+          <div className="cell large-9">
             <div className="ideas-grid">
               { getIdeas() }
             </div>
-            <div className="grid-x grid-padding-y grid-margin-y">
-              <div className="cell small-12 large-12 text-center">
-                <h2>Have an idea? <Link to={'/create'}>Submit one!</Link></h2>
-              </div>
-            </div>
+            <h4 className="text-center">Have an idea? <Link to={'/create'}>Submit one!</Link></h4>
           </div>
         </div>
       </div>
