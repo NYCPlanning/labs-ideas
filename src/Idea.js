@@ -38,7 +38,7 @@ const Idea = (props) => {
               <div className="cell large-4">
                 <div className="callout">
                   <h4 className="header-tiny">Customer</h4>
-                  <p><strong>{ idea.division }</strong></p>
+                  <p><strong>{ idea.customer }</strong></p>
                 </div>
                 <div className="callout">
                   <h4 className="header-tiny">Strategic Objectives</h4>

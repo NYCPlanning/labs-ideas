@@ -17,7 +17,7 @@
 // @include foundation-badge;
 // @include foundation-breadcrumbs;
 // @include foundation-button-group;
-// @include foundation-callout;
+@include foundation-callout;
 @include foundation-card;
 // @include foundation-close-button;
 @include foundation-menu;
@@ -75,12 +75,11 @@ p, h1, h2, h3, h4, h5, h6 {
   }
 }
 
-.button {
-  font-weight: $global-weight-bold;
-}
-
-button {
-  margin: 0 0.25rem 0.25rem 0;
+.ideas {
+  .button, .label {
+    font-weight: $global-weight-bold;
+    margin: 0 0.25rem 0.25rem 0;
+  }
 }
 
 .pl-site-header {

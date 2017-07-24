@@ -83,7 +83,8 @@ class Ideas extends Component {
     const getObjectives = (objectives, header) => objectives
       .map((d) => {
         const disabled = (header && categories.indexOf(d) < 0) ? 'hollow' : '';
-        return (
+
+        const button = (
           <button
             key={d}
             onClick={header ? () => { this.changeCategory(d); } : null}
@@ -91,7 +92,19 @@ class Ideas extends Component {
           >
             {d}
           </button>
-        );
+        )
+
+        const label = (
+          <span
+            key={d}
+            onClick={header ? () => { this.changeCategory(d); } : null}
+            className={`${slug(d)} ${disabled} label`}
+          >
+            {d}
+          </span>
+        )
+
+        return header ? button : label;
       });
 
     // filter and decorate ideas with markup
@@ -108,7 +121,7 @@ class Ideas extends Component {
                   { d.project_name }
                 </Link>
               </h3>
-              <h4 className="header-small">{ d.division }</h4>
+              <h4 className="header-small">{ d.customer }</h4>
               <p>{ d.short_description }</p>
               <p>{ d.strategic_objectives && getObjectives(d.strategic_objectives) }</p>
             </div>
@@ -121,10 +134,17 @@ class Ideas extends Component {
       <div className="grid-container ideas">
         <div className="grid-x grid-padding-x grid-padding-y">
           <div className="cell">
-            <h6>Filter by Strategic Objective</h6>
-            { getObjectives(defaultSelection, true) }
+            <div className="callout">
+              <h6>Filter by Strategic Objective</h6>
+              { getObjectives(defaultSelection, true) }
+            </div>
             <div className="ideas-grid">
               { getIdeas() }
+            </div>
+            <div className="grid-x grid-padding-y grid-margin-y">
+              <div className="cell small-12 large-12 text-center">
+                <h2>Have an idea? <Link to={'/create'}>Submit one!</Link></h2>
+              </div>
             </div>
           </div>
         </div>
