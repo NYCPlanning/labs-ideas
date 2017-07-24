@@ -82,12 +82,12 @@ class Ideas extends Component {
     // markup and event bindings for categories
     const getObjectives = (objectives, header) => objectives
       .map((d) => {
-        const disabled = (header && categories.indexOf(d) < 0) ? 'disabled' : '';
+        const disabled = (header && categories.indexOf(d) < 0) ? 'hollow' : '';
         return (
           <button
             key={d}
             onClick={header ? () => { this.changeCategory(d); } : null}
-            className={`label ${slug(d)} ${disabled}`}
+            className={`${slug(d)} ${disabled} button tiny`}
           >
             {d}
           </button>
@@ -110,7 +110,7 @@ class Ideas extends Component {
               </h3>
               <h4 className="header-small">{ d.division }</h4>
               <p>{ d.short_description }</p>
-              { d.strategic_objectives && getObjectives(d.strategic_objectives) }
+              <p>{ d.strategic_objectives && getObjectives(d.strategic_objectives) }</p>
             </div>
           </div>
         </div>
@@ -119,9 +119,10 @@ class Ideas extends Component {
     // put it all together
     return (
       <div className="grid-container ideas">
-        { getObjectives(defaultSelection, true) }
         <div className="grid-x grid-padding-x grid-padding-y">
           <div className="cell">
+            <h6>Filter by Strategic Objective</h6>
+            { getObjectives(defaultSelection, true) }
             <div className="ideas-grid">
               { getIdeas() }
             </div>

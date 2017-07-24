@@ -294,7 +294,14 @@ $button-sizes: (
   default: 0.9rem,
   large: 1.25rem,
 );
-$button-palette: $foundation-palette;
+$button-palette: map-merge($foundation-palette, (
+    neighborhood-improvement: #9df09d,
+    housing: #ffef62,
+    economic-development: #f5a9a9,
+    resiliency-and-sustainability: #94d3ed,
+    land-use-reviews: #f6b47d,
+    data-and-expertise: #c9c4ed,
+));
 $button-opacity-disabled: 0.25;
 $button-background-hover-lightness: -20%;
 $button-hollow-hover-lightness: -50%;

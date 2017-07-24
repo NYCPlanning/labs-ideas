@@ -1,7 +1,9 @@
 .ideas {
-  .label.disabled {
-    background: #FFF;
-    color: #000;
-    border: 1px solid #ccc;
+  button {
+    margin: 0 0.25rem 0.25rem 0;
+  }
+
+  .cell>button.hollow {
+    color: #666;
   }
 }
