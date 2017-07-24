@@ -42,8 +42,8 @@ class App extends Component {
         <Route
           exact
           path="/"
-          render={() => (
-            <Ideas ideas={ideas} />
+          render={props => (
+            <Ideas ideas={ideas} {...props} />
           )}
         />
         <Route
