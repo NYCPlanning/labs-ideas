@@ -40,6 +40,16 @@ class Ideas extends Component {
     this.state = { categories };
   }
 
+  componentWillReceiveProps(nextProps) {
+    const queryParams = new URLSearchParams(nextProps.location.search);
+
+    if (!queryParams.get('categories')) {
+      this.setState({
+        categories: defaultSelection,
+      });
+    }
+  }
+
   changeCategory = (clickedCategory) => {
     let categories = this.state.categories.slice();
     const { history } = this.props;
