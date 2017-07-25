@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import 'url-search-params-polyfill';
 import slug from 'slug';
 
 import './Ideas.css';
@@ -92,17 +93,19 @@ class Ideas extends Component {
           >
             {d}
           </button>
-        )
+        );
 
         const label = (
           <span
             key={d}
+            role="button"
+            tabIndex={0}
             onClick={header ? () => { this.changeCategory(d); } : null}
             className={`${slug(d)} ${disabled} label`}
           >
             {d}
           </span>
-        )
+        );
 
         return header ? button : label;
       });
@@ -158,8 +161,8 @@ class Ideas extends Component {
 
 Ideas.propTypes = {
   ideas: PropTypes.arrayOf(PropTypes.object).isRequired,
-  location: PropTypes.shape.isRequired,
-  history: PropTypes.shape.isRequired,
+  location: PropTypes.shape().isRequired,
+  history: PropTypes.shape().isRequired,
 };
 
 export default Ideas;
