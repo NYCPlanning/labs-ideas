@@ -93,6 +93,7 @@ p, h1, h2, h3, h4, h5, h6 {
     color: $dark-gray;
     line-height: rem-calc(21);
     padding: rem-calc(23) rem-calc(20);
+    font-size:  0.875rem;
     font-weight: $global-weight-bold;
 
     &:hover {
