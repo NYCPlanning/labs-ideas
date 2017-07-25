@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-g-analytics';
 
 import Ideas from './Ideas';
@@ -38,7 +38,7 @@ class App extends Component {
     const { ideas } = this.state;
 
     const routes = (
-      <div>
+      <Switch>
         <Route
           exact
           path="/"
@@ -57,7 +57,7 @@ class App extends Component {
             <Idea ideas={ideas} {...props} />
           )}
         />
-      </div>
+      </Switch>
     );
 
     const content = ideas.length === 0 ? <Spinner /> : routes;
