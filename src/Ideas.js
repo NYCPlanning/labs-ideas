@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import 'url-search-params-polyfill';
 import slug from 'slug';
 
 import './Ideas.css';
