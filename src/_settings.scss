@@ -67,7 +67,7 @@
 // ---------
 
 $global-font-size: 100%;
-$global-width: rem-calc(1040);
+$global-width: rem-calc(1020);
 $global-lineheight: 1.5;
 $foundation-palette: (
   primary: #D96B27,
@@ -321,7 +321,7 @@ $buttongroup-radius-on-each: true;
 
 $callout-background: $white;
 $callout-background-fade: 85%;
-$callout-border: 1px solid rgba($black, 0.25);
+$callout-border: 1px solid $medium-gray;
 $callout-margin: 0 0 1rem 0;
 $callout-padding: 1rem;
 $callout-font-color: $body-font-color;
@@ -468,7 +468,7 @@ $label-palette: map-merge($foundation-palette, (
     land-use-reviews: #f6b47d,
     data-and-expertise: #c9c4ed,
 ));
-$label-font-size: 0.8rem;
+$label-font-size: 0.75rem;
 $label-padding: 0.375rem 0.75rem;
 $label-radius: $global-radius;
 
@@ -870,7 +870,7 @@ $grid-columns: 12;
 $grid-margin-gutters: (
   small: 20px,
   medium: 30px,
-  large: 60px,
+  large: 40px,
 );
 $grid-padding-gutters: $grid-margin-gutters;
 $block-grid-max: 8;

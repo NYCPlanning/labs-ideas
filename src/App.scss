@@ -17,7 +17,7 @@
 // @include foundation-badge;
 // @include foundation-breadcrumbs;
 // @include foundation-button-group;
-// @include foundation-callout;
+@include foundation-callout;
 @include foundation-card;
 // @include foundation-close-button;
 @include foundation-menu;
@@ -75,12 +75,11 @@ p, h1, h2, h3, h4, h5, h6 {
   }
 }
 
-.button {
-  font-weight: $global-weight-bold;
-}
-
-button {
-  margin: 0 0.25rem 0.25rem 0;
+.strategic-objectives, .tags {
+  .button, .label {
+    font-weight: $global-weight-bold;
+    margin: 0 0.25rem 0.25rem 0;
+  }
 }
 
 .pl-site-header {
@@ -136,6 +135,7 @@ button {
 .ideas-grid {
   @include xy-grid();
   @include xy-gutters($global-margin, padding, right left, true);
+  margin-bottom: $global-margin*2;
 
   .cell {
     @include xy-cell(full, true, $global-margin, padding, top right bottom left, null, false);
@@ -150,7 +150,7 @@ button {
 
     // TODO: This is a hack to equalize car heights, which is dependent on content length.
     @include breakpoint(large) {
-      min-height: 15rem;
+      min-height: 17.25rem;
     }
   }
 }

@@ -83,15 +83,28 @@ class Ideas extends Component {
     const getObjectives = (objectives, header) => objectives
       .map((d) => {
         const disabled = (header && categories.indexOf(d) < 0) ? 'hollow' : '';
-        return (
+
+        const button = (
           <button
             key={d}
             onClick={header ? () => { this.changeCategory(d); } : null}
-            className={`${slug(d)} ${disabled} button tiny`}
+            className={`${slug(d)} ${disabled} button small`}
           >
             {d}
           </button>
-        );
+        )
+
+        const label = (
+          <span
+            key={d}
+            onClick={header ? () => { this.changeCategory(d); } : null}
+            className={`${slug(d)} ${disabled} label`}
+          >
+            {d}
+          </span>
+        )
+
+        return header ? button : label;
       });
 
     // filter and decorate ideas with markup
@@ -108,9 +121,9 @@ class Ideas extends Component {
                   { d.project_name }
                 </Link>
               </h3>
-              <h4 className="header-small">{ d.division }</h4>
+              <h4 className="header-small">{ d.customer }</h4>
               <p>{ d.short_description }</p>
-              <p>{ d.strategic_objectives && getObjectives(d.strategic_objectives) }</p>
+              <p className="tags">{ d.strategic_objectives && getObjectives(d.strategic_objectives) }</p>
             </div>
           </div>
         </div>
@@ -121,11 +134,21 @@ class Ideas extends Component {
       <div className="grid-container ideas">
         <div className="grid-x grid-padding-x grid-padding-y">
           <div className="cell">
-            <h6>Filter by Strategic Objective</h6>
-            { getObjectives(defaultSelection, true) }
+            <h3>Ideas submitted by DCP staff</h3>
+          </div>
+          <div className="cell large-3">
+            <div>
+              <small>Filter by <a href="https://www1.nyc.gov/site/planning/about/dcp-priorities.page">DCP Strategic Objective</a>:</small>
+              <p className="strategic-objectives">
+                { getObjectives(defaultSelection, true) }
+              </p>
+            </div>
+          </div>
+          <div className="cell large-9">
             <div className="ideas-grid">
               { getIdeas() }
             </div>
+            <h4 className="text-center">Have an idea? <Link to={'/create'}>Submit one!</Link></h4>
           </div>
         </div>
       </div>
