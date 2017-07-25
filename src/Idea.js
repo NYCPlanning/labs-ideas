@@ -12,14 +12,12 @@ const Idea = (props) => {
 
   const idea = props.ideas.find(d => d.slug === pageSlug);
 
-  const getObjectives = (objectives) => {
-    return objectives.map(d => (
-      <span key={d} className={`label ${slug(d)}`}>{d}</span>
-    ))
-  }
+  const getObjectives = objectives => objectives.map(d => (
+    <span key={d} className={`label ${slug(d)}`}>{d}</span>
+  ));
 
   const objectives = idea && idea.strategic_objectives && idea.strategic_objectives.length > 0 ?
-    getObjectives(idea.strategic_objectives):
+    getObjectives(idea.strategic_objectives) :
     <div>None</div>;
 
   return (

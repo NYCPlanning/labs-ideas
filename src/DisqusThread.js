@@ -16,7 +16,6 @@ function renderDisqus() {
 }
 
 class DisqusThread extends React.Component {
-
   componentDidMount() {
     renderDisqus();
   }
