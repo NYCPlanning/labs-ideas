@@ -76,6 +76,14 @@ $foundation-palette: (
   warning: #cc3322,
   alert: #4466ff,
 );
+$strategic-objectives-palette: (
+  neighborhood-improvement: #9df09d,
+  housing: #ffef62,
+  economic-development: #f5a9a9,
+  resiliency-and-sustainability: #94d3ed,
+  land-use-reviews: #f6b47d,
+  data-and-expertise: #c9c4ed,
+);
 $light-gray: #fafafa;
 $medium-gray: #cacaca;
 $dark-gray: #5b616b;
@@ -294,14 +302,10 @@ $button-sizes: (
   default: 0.9rem,
   large: 1.25rem,
 );
-$button-palette: map-merge($foundation-palette, (
-    neighborhood-improvement: #9df09d,
-    housing: #ffef62,
-    economic-development: #f5a9a9,
-    resiliency-and-sustainability: #94d3ed,
-    land-use-reviews: #f6b47d,
-    data-and-expertise: #c9c4ed,
-));
+$button-palette: map-merge(
+  $foundation-palette,
+  $strategic-objectives-palette
+);
 $button-opacity-disabled: 0.25;
 $button-background-hover-lightness: -20%;
 $button-hollow-hover-lightness: -50%;
@@ -460,14 +464,10 @@ $form-button-radius: $global-radius;
 $label-background: $medium-gray;
 $label-color: $black;
 $label-color-alt: $white;
-$label-palette: map-merge($foundation-palette, (
-    neighborhood-improvement: #9df09d,
-    housing: #ffef62,
-    economic-development: #f5a9a9,
-    resiliency-and-sustainability: #94d3ed,
-    land-use-reviews: #f6b47d,
-    data-and-expertise: #c9c4ed,
-));
+$label-palette: map-merge(
+  $foundation-palette,
+  $strategic-objectives-palette
+);
 $label-font-size: 0.75rem;
 $label-padding: 0.375rem 0.75rem;
 $label-radius: $global-radius;
