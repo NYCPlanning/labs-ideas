@@ -38,7 +38,7 @@ class Ideas extends Component {
 
     const categories = value ? value.split(',') : defaultSelection;
 
-    this.state = { categories };
+    this.state = { categories, search: '' };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -49,6 +49,10 @@ class Ideas extends Component {
         categories: defaultSelection,
       });
     }
+  }
+
+  changeSearch = (event) => {
+    this.setState({ search: event.target.value });
   }
 
   changeCategory = (clickedCategory) => {
@@ -78,7 +82,7 @@ class Ideas extends Component {
 
   render() {
     const { ideas } = this.props;
-    const { categories } = this.state;
+    const { categories, search } = this.state;
 
     // markup and event bindings for categories
     const getObjectives = (objectives, header) => objectives
@@ -115,6 +119,8 @@ class Ideas extends Component {
       .filter(d => d.strategic_objectives && d.strategic_objectives.some(
         o => this.state.categories.indexOf(o) >= 0,
       ))
+      .filter(d => (d.project_name.toLowerCase().indexOf(search.toLowerCase()) >= 0) ||
+        (d.short_description.toLowerCase().indexOf(search.toLowerCase()) >= 0))
       .map(d => (
         <div key={d.project_id} className="cell">
           <div className="card">
@@ -140,6 +146,7 @@ class Ideas extends Component {
             <h3>Ideas submitted by DCP staff</h3>
           </div>
           <div className="cell large-3">
+            <input type="text" value={this.state.search} onChange={this.changeSearch} />
             <div>
               <small>Filter by <a href="https://www1.nyc.gov/site/planning/about/dcp-priorities.page">DCP Strategic Objective</a>:</small>
               <p className="strategic-objectives">
