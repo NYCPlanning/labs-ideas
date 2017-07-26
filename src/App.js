@@ -52,7 +52,7 @@ class App extends Component {
           component={IdeaCreate}
         />
         <Route
-          path="/:slug"
+          path="/:id/:slug"
           render={props => (
             <Idea ideas={ideas} {...props} />
           )}
