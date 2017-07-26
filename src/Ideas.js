@@ -82,9 +82,8 @@ class Ideas extends Component {
 
   render() {
     const { ideas } = this.props;
-    const { categories } = this.state;
-    const { search } = this.state;
-    
+    const { categories, search } = this.state;
+
     // markup and event bindings for categories
     const getObjectives = (objectives, header) => objectives
       .map((d) => {
@@ -120,8 +119,8 @@ class Ideas extends Component {
       .filter(d => d.strategic_objectives && d.strategic_objectives.some(
         o => this.state.categories.indexOf(o) >= 0,
       ))
-      .filter(d => (d.project_name.indexOf(search) >= 0) ||
-        (d.short_description.indexOf(search) >= 0))
+      .filter(d => (d.project_name.toLowerCase().indexOf(search.toLowerCase()) >= 0) ||
+        (d.short_description.toLowerCase().indexOf(search.toLowerCase()) >= 0))
       .map(d => (
         <div key={d.project_id} className="cell">
           <div className="card">
