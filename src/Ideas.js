@@ -10,6 +10,8 @@ slug.defaults.mode = 'rfc3986';
 
 const defaultSelection = ['Economic Development', 'Data and Expertise', 'Resiliency and Sustainability', 'Neighborhood Improvement', 'Housing'];
 
+let allTags;
+
 function checkIfAllSelected(categories, all) {
   let allSelected = true;
   all.forEach((d) => {
@@ -29,16 +31,26 @@ function removeItem(array, value) {
   return array;
 }
 
+function unique(array) {
+  return array.filter((x, i, a) => a.indexOf(x) === i);
+}
+
 class Ideas extends Component {
   constructor(props) {
     super();
-    const { location } = props;
+    const { location, ideas } = props;
     const query = new URLSearchParams(location.search);
     const value = query.get('categories') || '';
 
     const categories = value ? value.split(',') : defaultSelection;
 
-    this.state = { categories, search: '' };
+    allTags = unique(ideas.reduce((a, b) => a.concat(b.tags), []).filter(Boolean));
+
+    this.state = {
+      categories,
+      tags: allTags,
+      search: '',
+    };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -55,34 +67,46 @@ class Ideas extends Component {
     this.setState({ search: event.target.value });
   }
 
-  changeCategory = (clickedCategory) => {
-    let categories = this.state.categories.slice();
-    const { history } = this.props;
+  // updates filter state and query params based on a
+  // clicked value, list of all possible values, and type
+  changeFilter = (value, all, type) => {
+    let currentSelected = this.state[type].slice();
 
-    const allWereSelected = checkIfAllSelected(categories, defaultSelection);
+    const allWereSelected = checkIfAllSelected(currentSelected, all);
 
     if (allWereSelected) {
-      categories = [clickedCategory];
-    } else if (categories.indexOf(clickedCategory) > -1) {
-      categories = removeItem(categories, clickedCategory);
+      currentSelected = [value];
+    } else if (currentSelected.indexOf(value) > -1) {
+      currentSelected = removeItem(currentSelected, value);
     } else {
-      categories.push(clickedCategory);
+      currentSelected.push(value);
     }
 
-    if (categories.length === 0) categories = defaultSelection;
+    if (currentSelected.length === 0) currentSelected = all;
 
-    this.setState({ categories });
+    this.state[type] = currentSelected;
+    this.forceUpdate();
 
-    const allAreSelected = checkIfAllSelected(categories, defaultSelection);
+    this.updateParams();
+  }
 
-    history.push({
-      search: allAreSelected ? '' : `?categories=${categories.join(',')}`,
-    });
+  updateParams() {
+    const { history } = this.props;
+    const { categories, tags } = this.state;
+
+    const paramChunks = [];
+
+    if (!checkIfAllSelected(categories, defaultSelection)) paramChunks.push(`catgories=${categories.join(',')}`);
+    if (!checkIfAllSelected(tags, allTags)) paramChunks.push(`tags=${tags.join(',')}`);
+
+    const search = (paramChunks.length === 0) ? '' : `?${paramChunks.join('&')}`;
+
+    history.push({ search });
   }
 
   render() {
     const { ideas } = this.props;
-    const { categories, search } = this.state;
+    const { categories, search, tags } = this.state;
 
     // markup and event bindings for categories
     const getObjectives = (objectives, header) => objectives
@@ -92,7 +116,7 @@ class Ideas extends Component {
         const button = (
           <button
             key={d}
-            onClick={header ? () => { this.changeCategory(d); } : null}
+            onClick={header ? () => { this.changeFilter(d, defaultSelection, 'categories'); } : null}
             className={`${slug(d)} ${disabled} button small`}
           >
             {d}
@@ -104,7 +128,36 @@ class Ideas extends Component {
             key={d}
             role="button"
             tabIndex={0}
-            onClick={header ? () => { this.changeCategory(d); } : null}
+            onClick={header ? () => { this.changeFilter(d, defaultSelection, 'categories'); } : null}
+            className={`${slug(d)} ${disabled} label`}
+          >
+            {d}
+          </span>
+        );
+
+        return header ? button : label;
+      });
+
+    const getTags = (theseTags, header) => theseTags
+      .map((d) => {
+        const disabled = (header && tags.indexOf(d) < 0) ? 'hollow' : '';
+
+        const button = (
+          <button
+            key={d}
+            onClick={header ? () => { this.changeFilter(d, allTags, 'tags'); } : null}
+            className={`${slug(d)} ${disabled} button small`}
+          >
+            {d}
+          </button>
+        );
+
+        const label = (
+          <span
+            key={d}
+            role="button"
+            tabIndex={0}
+            onClick={header ? () => { this.changeFilter(d, allTags, 'tags'); } : null}
             className={`${slug(d)} ${disabled} label`}
           >
             {d}
@@ -118,6 +171,9 @@ class Ideas extends Component {
     const getIdeas = () => ideas
       .filter(d => d.strategic_objectives && d.strategic_objectives.some(
         o => this.state.categories.indexOf(o) >= 0,
+      ))
+      .filter(d => d.tags && d.tags.some(
+        o => this.state.tags.indexOf(o) >= 0,
       ))
       .filter(d => (d.project_name.toLowerCase().indexOf(search.toLowerCase()) >= 0) ||
         (d.short_description.toLowerCase().indexOf(search.toLowerCase()) >= 0))
@@ -151,6 +207,12 @@ class Ideas extends Component {
               <small>Filter by <a href="https://www1.nyc.gov/site/planning/about/dcp-priorities.page">DCP Strategic Objective</a>:</small>
               <p className="strategic-objectives">
                 { getObjectives(defaultSelection, true) }
+              </p>
+            </div>
+            <div>
+              <small>Filter by Tag</small>
+              <p className="strategic-objectives">
+                { getTags(allTags, true) }
               </p>
             </div>
           </div>
