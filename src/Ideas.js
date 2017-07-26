@@ -84,7 +84,7 @@ class Ideas extends Component {
     const { ideas } = this.props;
     const { categories } = this.state;
     const { search } = this.state;
-    console.log(search);
+    
     // markup and event bindings for categories
     const getObjectives = (objectives, header) => objectives
       .map((d) => {
