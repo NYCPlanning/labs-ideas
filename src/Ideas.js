@@ -120,7 +120,8 @@ class Ideas extends Component {
       .filter(d => d.strategic_objectives && d.strategic_objectives.some(
         o => this.state.categories.indexOf(o) >= 0,
       ))
-      .filter(d => (d.project_name.indexOf(search) >= 0) || (d.short_description.indexOf(search) >= 0))
+      .filter(d => (d.project_name.indexOf(search) >= 0) ||
+        (d.short_description.indexOf(search) >= 0))
       .map(d => (
         <div key={d.project_id} className="cell">
           <div className="card">
