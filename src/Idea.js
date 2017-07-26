@@ -56,7 +56,7 @@ const Idea = (props) => {
                   className="disqus"
                   id={idea.project_id.toString()}
                   title={idea.project_name}
-                  path={`/ideas/${idea.slug}`}
+                  path={`/${idea.slug}`}
                 />
               </div>
             </div>
