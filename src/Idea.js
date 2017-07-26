@@ -8,9 +8,9 @@ import NotFound from './NotFound';
 import './Idea.css';
 
 const Idea = (props) => {
-  const pageSlug = props.match.params.slug;
+  const pageId = props.match.params.id;
 
-  const idea = props.ideas.find(d => d.slug === pageSlug);
+  const idea = props.ideas.find(d => d.project_id === parseInt(pageId, 10));
 
   const getObjectives = objectives => objectives.map(d => (
     <span key={d} className={`label ${slug(d)}`}>{d}</span>
@@ -75,7 +75,7 @@ Idea.propTypes = {
   ideas: PropTypes.arrayOf(PropTypes.object).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
-      slug: PropTypes.string,
+      id: PropTypes.string,
     }),
   }).isRequired,
 };
