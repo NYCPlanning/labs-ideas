@@ -120,7 +120,7 @@ class Ideas extends Component {
           <div className="card">
             <div className="card-section">
               <h3>
-                <Link to={`/${d.slug}`}>
+                <Link to={`${d.project_id}/${d.slug}`}>
                   { d.project_name }
                 </Link>
               </h3>
