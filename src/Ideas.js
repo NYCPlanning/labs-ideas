@@ -119,8 +119,14 @@ class Ideas extends Component {
       .filter(d => d.strategic_objectives && d.strategic_objectives.some(
         o => this.state.categories.indexOf(o) >= 0,
       ))
+<<<<<<< HEAD
       .filter(d => (d.project_name.toLowerCase().indexOf(search.toLowerCase()) >= 0) ||
         (d.short_description.toLowerCase().indexOf(search.toLowerCase()) >= 0))
+=======
+      .filter(d => (d.project_name.indexOf(search) >= 0) ||
+        (d.short_description.indexOf(search) >= 0),
+      )
+>>>>>>> 5cd9f7b74bf8f8af4e185f1424ab5e5b1c310103
       .map(d => (
         <div key={d.project_id} className="cell">
           <div className="card">
