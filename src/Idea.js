@@ -16,6 +16,14 @@ const Idea = (props) => {
     <span key={d} className={`label ${slug(d)}`}>{d}</span>
   ));
 
+  const getTags = tags => tags.map(d => (
+    <span key={d} className={`label ${slug(d)}`}>{d}</span>
+  ));
+
+  const tags = idea && idea.tags && idea.tags.length > 0 ?
+    getTags(idea.tags) :
+    <div>None</div>;
+
   const objectives = idea && idea.strategic_objectives && idea.strategic_objectives.length > 0 ?
     getObjectives(idea.strategic_objectives) :
     <div>None</div>;
@@ -43,12 +51,8 @@ const Idea = (props) => {
                   <p className="strategic-objectives">{ objectives }</p>
                 </div>
                 <div className="callout">
-                  <h4 className="header-tiny">Project Type</h4>
-                  <p className="tags">
-                    <span className="label">Mapping</span>
-                    <span className="label">Data Explorer</span>
-                    <span className="label">Workflow</span>
-                  </p>
+                  <h4 className="header-tiny">Tags</h4>
+                  <p className="tags">{ tags }</p>
                 </div>
               </div>
               <div className="cell large-8">
