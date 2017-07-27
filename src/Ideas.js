@@ -13,7 +13,7 @@ const allCategories = ['Economic Development', 'Data and Expertise', 'Resiliency
 const allValues = {};
 
 const checkIfAllSelected = (categories, all) =>
-  all.every(current => categories.indexOf(current) > 0);
+  all.every(element => (categories.indexOf(element) < 0) === false);
 
 // utility helpers for arrays
 const removeItem = (array, value) => {
@@ -27,7 +27,6 @@ const removeItem = (array, value) => {
 };
 
 const unique = array => array.filter((x, i, a) => a.indexOf(x) === i);
-
 
 class Ideas extends Component {
   constructor(props) {
@@ -70,7 +69,7 @@ class Ideas extends Component {
   // clicked value, list of all possible values, and type
   changeFilter = (value, all, type) => {
     let currentSelected = this.state[type].slice();
-
+    console.log(currentSelected);
     const allWereSelected = checkIfAllSelected(currentSelected, all);
 
     if (allWereSelected) {
@@ -83,11 +82,12 @@ class Ideas extends Component {
 
     if (currentSelected.length === 0) currentSelected = all;
 
-    const stateObject = {};
+    let stateObject = {};
     stateObject[type] = currentSelected;
 
-    this.setState(stateObject);
-    this.updateParams();
+    this.setState(stateObject, () => {
+      this.updateParams();
+    });
   }
 
   // updates url query params from state
@@ -108,7 +108,6 @@ class Ideas extends Component {
   render() {
     const { ideas } = this.props;
     const { search } = this.state;
-
     // markup and event bindings for categories
     const getChips = (values, type, header) => values
       .map((d) => {
