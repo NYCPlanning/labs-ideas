@@ -12,13 +12,8 @@ const allCategories = ['Economic Development', 'Data and Expertise', 'Resiliency
 
 const allValues = {};
 
-const checkIfAllSelected = (categories, all) => {
-  let allSelected = true;
-  all.forEach((d) => {
-    if (categories.indexOf(d) < 0) allSelected = false;
-  });
-  return allSelected;
-};
+const checkIfAllSelected = (categories, all) =>
+  all.every(current => categories.indexOf(current) > 0);
 
 // utility helpers for arrays
 const removeItem = (array, value) => {
@@ -43,7 +38,11 @@ class Ideas extends Component {
     const queryTags = query.get('tags') || '';
 
     allValues.categories = allCategories;
-    allValues.tags = unique(ideas.reduce((a, b) => a.concat(b.tags), []).filter(Boolean));
+    allValues.tags = unique(
+      ideas
+        .reduce((accumulator, element) => accumulator.concat(element.tags), [])
+        .filter(Boolean),
+    );
 
     const categories = queryCategories ? queryCategories.split(',') : allValues.categories;
     const tags = queryTags ? queryTags.split(',') : allValues.tags;
@@ -84,9 +83,10 @@ class Ideas extends Component {
 
     if (currentSelected.length === 0) currentSelected = all;
 
-    this.state[type] = currentSelected;
-    this.forceUpdate();
+    const stateObject = {};
+    stateObject[type] = currentSelected;
 
+    this.setState(stateObject);
     this.updateParams();
   }
 
