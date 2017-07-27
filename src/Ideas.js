@@ -8,9 +8,9 @@ import './Ideas.css';
 
 slug.defaults.mode = 'rfc3986';
 
-const defaultSelection = ['Economic Development', 'Data and Expertise', 'Resiliency and Sustainability', 'Neighborhood Improvement', 'Housing'];
+const allCategories = ['Economic Development', 'Data and Expertise', 'Resiliency and Sustainability', 'Neighborhood Improvement', 'Housing'];
 
-let allTags;
+const allValues = {};
 
 const checkIfAllSelected = (categories, all) => {
   let allSelected = true;
@@ -42,10 +42,11 @@ class Ideas extends Component {
     const queryCategories = query.get('categories') || '';
     const queryTags = query.get('tags') || '';
 
-    const categories = queryCategories ? queryCategories.split(',') : defaultSelection;
+    allValues.categories = allCategories;
+    allValues.tags = unique(ideas.reduce((a, b) => a.concat(b.tags), []).filter(Boolean));
 
-    allTags = unique(ideas.reduce((a, b) => a.concat(b.tags), []).filter(Boolean));
-    const tags = queryTags ? queryTags.split(',') : allTags;
+    const categories = queryCategories ? queryCategories.split(',') : allValues.categories;
+    const tags = queryTags ? queryTags.split(',') : allValues.tags;
 
     this.state = {
       categories,
@@ -58,9 +59,7 @@ class Ideas extends Component {
     const queryParams = new URLSearchParams(nextProps.location.search);
 
     if (!queryParams.get('categories')) {
-      this.setState({
-        categories: defaultSelection,
-      });
+      this.setState({ categories: allValues.categories });
     }
   }
 
@@ -91,14 +90,15 @@ class Ideas extends Component {
     this.updateParams();
   }
 
+  // updates url query params from state
   updateParams() {
     const { history } = this.props;
     const { categories, tags } = this.state;
 
     const paramChunks = [];
 
-    if (!checkIfAllSelected(categories, defaultSelection)) paramChunks.push(`categories=${categories.join(',')}`);
-    if (!checkIfAllSelected(tags, allTags)) paramChunks.push(`tags=${tags.join(',')}`);
+    if (!checkIfAllSelected(categories, allValues.categories)) paramChunks.push(`categories=${categories.join(',')}`);
+    if (!checkIfAllSelected(tags, allValues.tags)) paramChunks.push(`tags=${tags.join(',')}`);
 
     const search = (paramChunks.length === 0) ? '' : `?${paramChunks.join('&')}`;
 
@@ -107,17 +107,17 @@ class Ideas extends Component {
 
   render() {
     const { ideas } = this.props;
-    const { categories, search, tags } = this.state;
+    const { search } = this.state;
 
     // markup and event bindings for categories
-    const getObjectives = (objectives, header) => objectives
+    const getChips = (values, type, header) => values
       .map((d) => {
-        const disabled = (header && categories.indexOf(d) < 0) ? 'hollow' : '';
+        const disabled = (header && this.state[type].indexOf(d) < 0) ? 'hollow' : '';
 
         const button = (
           <button
             key={d}
-            onClick={header ? () => { this.changeFilter(d, defaultSelection, 'categories'); } : null}
+            onClick={header ? () => { this.changeFilter(d, allValues[type], type); } : null}
             className={`${slug(d)} ${disabled} button small`}
           >
             {d}
@@ -129,36 +129,7 @@ class Ideas extends Component {
             key={d}
             role="button"
             tabIndex={0}
-            onClick={header ? () => { this.changeFilter(d, defaultSelection, 'categories'); } : null}
-            className={`${slug(d)} ${disabled} label`}
-          >
-            {d}
-          </span>
-        );
-
-        return header ? button : label;
-      });
-
-    const getTags = (theseTags, header) => theseTags
-      .map((d) => {
-        const disabled = (header && tags.indexOf(d) < 0) ? 'hollow' : '';
-
-        const button = (
-          <button
-            key={d}
-            onClick={header ? () => { this.changeFilter(d, allTags, 'tags'); } : null}
-            className={`${slug(d)} ${disabled} button small`}
-          >
-            {d}
-          </button>
-        );
-
-        const label = (
-          <span
-            key={d}
-            role="button"
-            tabIndex={0}
-            onClick={header ? () => { this.changeFilter(d, allTags, 'tags'); } : null}
+            onClick={header ? () => { this.changeFilter(d, allValues[type], type); } : null}
             className={`${slug(d)} ${disabled} label`}
           >
             {d}
@@ -190,8 +161,8 @@ class Ideas extends Component {
               <h4 className="header-small">{ d.customer }</h4>
               <p>{ d.short_description }</p>
               <p className="tags">
-                { d.strategic_objectives && getObjectives(d.strategic_objectives) }
-                { d.tags && getTags(d.tags) }
+                { d.strategic_objectives && getChips(d.strategic_objectives, 'categories') }
+                { d.tags && getChips(d.tags, 'tags') }
               </p>
             </div>
           </div>
@@ -210,13 +181,13 @@ class Ideas extends Component {
             <div>
               <small>Filter by <a href="https://www1.nyc.gov/site/planning/about/dcp-priorities.page">DCP Strategic Objective</a>:</small>
               <p className="strategic-objectives">
-                { getObjectives(defaultSelection, true) }
+                { getChips(allValues.categories, 'categories', true) }
               </p>
             </div>
             <div>
               <small>Filter by Tag</small>
               <p className="strategic-objectives">
-                { getTags(allTags, true) }
+                { getChips(allValues.tags, 'tags', true) }
               </p>
             </div>
           </div>
