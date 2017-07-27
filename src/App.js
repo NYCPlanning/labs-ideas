@@ -8,6 +8,7 @@ import IdeaCreate from './IdeaCreate';
 import Hero from './Hero';
 import Spinner from './Spinner';
 import ScrollToTop from './ScrollToTop';
+import Navigation from './Navigation';
 
 import './App.css';
 
@@ -65,6 +66,7 @@ class App extends Component {
 
     return (
       <div>
+        <Navigation />
         <Router id={gaTrackingCode}>
           <ScrollToTop >
             <div className="App">
