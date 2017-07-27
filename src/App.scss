@@ -75,10 +75,24 @@ p, h1, h2, h3, h4, h5, h6 {
   }
 }
 
-.strategic-objectives, .tags {
+.filter--strategic-objectives,
+.filter--tags,
+.idea--tags {
   .button, .label {
     font-weight: $global-weight-bold;
     margin: 0 0.25rem 0.25rem 0;
+  }
+}
+.filter--tags {
+
+  .button {
+    @include button-style($label-background, auto, $label-color);
+
+    &.hollow {
+      @include button(false, $label-background, auto, $label-color, hollow);
+      font-size: 0.75rem;
+      margin: 0 0.25rem 0.25rem 0;
+    }
   }
 }
 

@@ -160,7 +160,7 @@ class Ideas extends Component {
               </h3>
               <h4 className="header-small">{ d.customer }</h4>
               <p>{ d.short_description }</p>
-              <p className="tags">
+              <p className="idea--tags">
                 { d.strategic_objectives && getChips(d.strategic_objectives, 'categories') }
                 { d.tags && getChips(d.tags, 'tags') }
               </p>
@@ -180,13 +180,13 @@ class Ideas extends Component {
             <input type="text" value={this.state.search} onChange={this.changeSearch} />
             <div>
               <small>Filter by <a href="https://www1.nyc.gov/site/planning/about/dcp-priorities.page">DCP Strategic Objective</a>:</small>
-              <p className="strategic-objectives">
+              <p className="filter--strategic-objectives">
                 { getChips(allValues.categories, 'categories', true) }
               </p>
             </div>
             <div>
               <small>Filter by Tag</small>
-              <p className="strategic-objectives">
+              <p className="filter--tags">
                 { getChips(allValues.tags, 'tags', true) }
               </p>
             </div>
