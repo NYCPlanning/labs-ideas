@@ -12,16 +12,16 @@ const defaultSelection = ['Economic Development', 'Data and Expertise', 'Resilie
 
 let allTags;
 
-function checkIfAllSelected(categories, all) {
+const checkIfAllSelected = (categories, all) => {
   let allSelected = true;
   all.forEach((d) => {
     if (categories.indexOf(d) < 0) allSelected = false;
   });
   return allSelected;
-}
+};
 
 // utility helpers for arrays
-function removeItem(array, value) {
+const removeItem = (array, value) => {
   const index = array.indexOf(value);
 
   if (index > -1) {
@@ -29,26 +29,27 @@ function removeItem(array, value) {
   }
 
   return array;
-}
+};
 
-function unique(array) {
-  return array.filter((x, i, a) => a.indexOf(x) === i);
-}
+const unique = array => array.filter((x, i, a) => a.indexOf(x) === i);
+
 
 class Ideas extends Component {
   constructor(props) {
     super();
     const { location, ideas } = props;
     const query = new URLSearchParams(location.search);
-    const value = query.get('categories') || '';
+    const queryCategories = query.get('categories') || '';
+    const queryTags = query.get('tags') || '';
 
-    const categories = value ? value.split(',') : defaultSelection;
+    const categories = queryCategories ? queryCategories.split(',') : defaultSelection;
 
     allTags = unique(ideas.reduce((a, b) => a.concat(b.tags), []).filter(Boolean));
+    const tags = queryTags ? queryTags.split(',') : allTags;
 
     this.state = {
       categories,
-      tags: allTags,
+      tags,
       search: '',
     };
   }
@@ -96,7 +97,7 @@ class Ideas extends Component {
 
     const paramChunks = [];
 
-    if (!checkIfAllSelected(categories, defaultSelection)) paramChunks.push(`catgories=${categories.join(',')}`);
+    if (!checkIfAllSelected(categories, defaultSelection)) paramChunks.push(`categories=${categories.join(',')}`);
     if (!checkIfAllSelected(tags, allTags)) paramChunks.push(`tags=${tags.join(',')}`);
 
     const search = (paramChunks.length === 0) ? '' : `?${paramChunks.join('&')}`;
@@ -188,7 +189,10 @@ class Ideas extends Component {
               </h3>
               <h4 className="header-small">{ d.customer }</h4>
               <p>{ d.short_description }</p>
-              <p className="tags">{ d.strategic_objectives && getObjectives(d.strategic_objectives) }</p>
+              <p className="tags">
+                { d.strategic_objectives && getObjectives(d.strategic_objectives) }
+                { d.tags && getTags(d.tags) }
+              </p>
             </div>
           </div>
         </div>
