@@ -14,6 +14,9 @@
     <!-- <link rel="stylesheet" href="%PUBLIC_URL%/dcp.css"></link> -->
     <link rel="stylesheet" href="%PUBLIC_URL%/styles.css"></link>
 
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:900" rel="stylesheet">
+
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -26,21 +29,34 @@
     <title>NYC Planning Labs</title>
   </head>
   <body>
-    <header role="banner" class="pl-site-header grid-container">
-      <div class="grid-x grid-padding-x">
-        <div class="cell large-auto">
-          <a class="site-logo media_link" href="//planninglabs.nyc"><img src="//planninglabs.nyc/assets/img/labs-logo.png" alt="NYC Planning Labs"></a>
-        </div>
-        <div class="cell large-shrink">
-          <nav role="navigation">
-            <ul class="menu vertical large-horizontal">
-              <li><a href="//planninglabs.nyc/about/"><span>About</span></a></li>
-              <li><a href="//planninglabs.nyc/projects/"><span>Projects</span></a></li>
-              <li><a href="//planninglabs.nyc/process/"><span>Process</span></a></li>
-              <li><a href="//planninglabs.nyc/blog/"><span>Blog</span></a></li>
-              <li><a href="//planninglabs.nyc/contact/"><span>Contact</span></a></li>
-            </ul>
-          </nav>
+    <a class="show-on-focus" href="#main">Skip to main content</a>
+
+    <header role="banner" class="site-header">
+      <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+          <div class="cell shrink large-auto">
+            <a class="site-logo montserrat" href="//planninglabs.nyc">
+              <img src="https://raw.githubusercontent.com/NYCPlanning/logo/master/dcp_logo_772.png" alt="NYC Planning">
+              <span class="site-logo--l">L</span>
+              <span class="site-logo--a">a</span>
+              <span class="site-logo--b">b</span>
+              <span class="site-logo--s">s</span>
+            </a>
+          </div>
+          <div class="cell auto hide-for-large text-right">
+            <button class="responsive-nav-toggler" data-toggle="responsive-menu">Menu</button>
+          </div>
+          <div id="responsive-menu" class="cell large-shrink show-for-large" data-toggler=".show-for-large">
+            <nav role="navigation">
+              <ul class="menu vertical large-horizontal">
+                <li><a href="//planninglabs.nyc/about/"><span>About</span></a></li>
+                <li><a href="//planninglabs.nyc/projects/"><span>Projects</span></a></li>
+                <li><a href="//planninglabs.nyc/process/"><span>Process</span></a></li>
+                <li><a href="//planninglabs.nyc/blog/"><span>Blog</span></a></li>
+                <li><a href="//planninglabs.nyc/contact/"><span>Contact</span></a></li>
+              </ul>
+            </nav>
+          </div>
         </div>
       </div>
     </header>

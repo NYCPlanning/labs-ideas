@@ -58,6 +58,8 @@
 /// Planning Labs Custom Styles
 ////
 
+$dcp-yellow: #ffc861;
+
 .header-xxlarge { @extend h1; }
 .header-xlarge {  @extend h2; }
 .header-large {   @extend h3; }
@@ -96,27 +98,106 @@ p, h1, h2, h3, h4, h5, h6 {
   }
 }
 
-.pl-site-header {
+.site-header {
+  background-color: $white;
 
-  .site-logo {
-    display: inline-block;
-    padding: 0.625rem 0;
-  }
+  .menu {
+    a {
+      color: $dark-gray;
+      line-height: rem-calc(21);
+      padding: rem-calc(23) rem-calc(20);
+      font-size:  0.875rem;
+      font-weight: $global-weight-bold;
 
-  .menu a {
-    color: $dark-gray;
-    line-height: rem-calc(21);
-    padding: rem-calc(23) rem-calc(20);
-    font-size:  0.875rem;
-    font-weight: $global-weight-bold;
+      &:hover {
+        background-color: $light-gray;
+        color: $black;
+      }
+    }
 
-    &:hover {
-      background-color: $light-gray;
-      color: $black;
+    .is-active {
+      background-color: $menu-item-background-active;
+      box-shadow: inset 0.5rem 0 0 $dcp-yellow;
+      @include breakpoint(large) {
+        box-shadow: inset 0 -0.5rem 0 $dcp-yellow;
+      }
+
+      a {
+        color: $black;
+        background-color: transparent;
+      }
     }
   }
 }
 
+.responsive-nav-toggler {
+  color: $dark-gray;
+  background-color: $light-gray;
+  font-size:  0.875rem;
+  font-weight: $global-weight-bold;
+  line-height: rem-calc(21);
+  cursor: pointer;
+  margin: 0.625rem 0;
+  padding: rem-calc(10) rem-calc(16);
+}
+
+// Logo
+$logo-height-small: rem-calc(36);
+$logo-height: rem-calc(48);
+$logo-padding: 0.625rem;
+
+.montserrat {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+}
+
+.site-logo {
+  float: left;
+  padding: 0.75rem 0 0;
+  line-height: 1;
+  height: $logo-height-small + $logo-padding;
+  overflow: visible;
+
+  @include breakpoint(large) {
+    padding: $logo-padding 0 0;
+    height: $logo-height + $logo-padding;
+  }
+
+  img {
+    float: left;
+    height: $logo-height-small;
+    margin-right: $logo-padding;
+
+    @include breakpoint(large) {
+      height: $logo-height;
+    }
+  }
+
+  span {
+    font-size: rem-calc(48);
+    float: left;
+    position: relative;
+    top: rem-calc(-5);
+
+    @include breakpoint(large) {
+      font-size: rem-calc(64);
+      top: rem-calc(-7);
+    }
+
+    &.site-logo--l {
+    }
+    &.site-logo--a {
+      margin-right: -0.05em;
+    }
+    &.site-logo--b {
+      margin-right: -0.03em;
+    }
+    &.site-logo--s {
+    }
+  }
+}
+
+// Footer
 .pl-site-footer {
   background-color: #f1f1f1;
   font-size: $small-font-size;
@@ -134,16 +215,17 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 .pl-hero {
-  background-color: $primary-color;
+  background-color: #d96b27;
   color: $white;
   margin-bottom: $global-margin * 2;
 
   .header-large {
-    color: get-color(secondary);
+    color: #ffeec1;
   }
 
   .button {
-    @include button-style(darken($primary-color,10%), auto, get-color(secondary));
+    @include button-style($primary-color, auto, get-color(secondary));
+    font-weight: bold;
   }
 }
 
