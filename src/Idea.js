@@ -48,11 +48,11 @@ const Idea = (props) => {
                 </div>
                 <div className="callout">
                   <h4 className="header-tiny">Strategic Objectives</h4>
-                  <p className="strategic-objectives">{ objectives }</p>
+                  <p className="strategic-objectives idea--tags">{ objectives }</p>
                 </div>
                 <div className="callout">
                   <h4 className="header-tiny">Tags</h4>
-                  <p className="tags">{ tags }</p>
+                  <p className="tags idea--tags">{ tags }</p>
                 </div>
               </div>
               <div className="cell large-8">
